@@ -22,9 +22,9 @@ FeynmanIntegralUF[U_,F_,Powers_,h_]:= Block[
 
 			ind[[i]]=-10]
 		,{i,Length[Powers]}];
-		
-	Gammas = Times@@(Gamma/@Select[Powers,#!=0&])
-	xProduct = Times@@Table[If[Powers[[ii]]!=0,x[ind[[ii]]]^(Powers[[ii]]-1),1],{ii,Length[Powers]}]
+
+	Gammas = Times@@(Gamma/@Select[Powers,#!=0&]);
+	xProduct = Times@@Table[If[Powers[[ii]]!=0,x[ind[[ii]]]^(Powers[[ii]]-1),1],{ii,Length[Powers]}];
 	Return[(-1)^a(I Pi^(d/2))^h Gamma[a-h d/2]/Gammas U^(a-(h+1)d/2)/F^(a-h d/2) * xProduct]
 
 ]
@@ -51,6 +51,7 @@ FeynmanIntegral[LoopMomenta_,Topology_,Replacements_,Powers_]:=Block[
 	 myTopo = Delete[Topology,PowersZeroes]; (* Remove them from the list *)
 	 myPowers = Delete[Powers,PowersZeroes]; (* Remove the associated 0 powers *)
 
+
 	 (* Check which loop momenta remain by listing the variables in myTopo and comparing with LoopMomenta *)
 	 v = Variables[myTopo];
 	 myLoopMomenta=DeleteCases[
@@ -60,7 +61,8 @@ FeynmanIntegral[LoopMomenta_,Topology_,Replacements_,Powers_]:=Block[
 		Null
 	];
 
-	 {U,F}=UF[myLoopMomenta,myTopology,Replacements];
+	({U,F,DUMMY}=UF[myLoopMomenta,myTopo,Replacements]);
 
-	 Return[FeynmanIntegralUF[U,F,Powers,Length[myLoopMomenta]]]
+
+	Return[FeynmanIntegralUF[U,F,Powers,Length[myLoopMomenta]]]
 ]
