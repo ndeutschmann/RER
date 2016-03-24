@@ -11,5 +11,5 @@ PolyRegionExpand[U_,ASYOutput_,Param_,rho_,Order_]:=Block[
     
     ScaledUsExpanded=(SortBy[List@@(Collect[#,rho]),Exponent[#,rho]&])&/@ScaledUs;
     
-    Return[Part[ScaledUsExpanded,1;;Order]]
+    Return[Part[#,1;;Order]&/@ScalesUsExpanded]
 ]
