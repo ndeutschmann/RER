@@ -19,4 +19,9 @@
 (* Generate conditions for variables *)
 (GenerateAssumptions[x__]:=And @@ (# > 0 & /@ List[x]));
 
+(* d to epsilon *)
+(ToEps = {d->4-2ep});
+
+(* Normalization factor for loops *)
+(LoopFactor = I Pi^(2-ep) Exp[-ep EulerGamma]);
 
