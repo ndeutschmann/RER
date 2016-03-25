@@ -20,3 +20,7 @@
 (GenerateAssumptions[x__]:=And @@ (# > 0 & /@ List[x]));
 
 
+(* Normalization factor for loops *)
+(LoopFactor = I Pi^(d/2) Exp[-ep EulerGamma])
+
+
