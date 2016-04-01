@@ -10,12 +10,13 @@ LORI[LoopMomenta_,Propagators_,Replacements_,Powers_,rho_,RegionRules_]:=
         {U,F,Dummy}=UF[LoopMomenta,Propagators,Replacements];
         
 
-        ASYOutput=AlphaRepExpand[LoopMomenta, Propagators, Replacements,RegionRules,PreResolve -> True]
+        ASYOutput=AlphaRepExpand[LoopMomenta, Propagators, Replacements,RegionRules,PreResolve -> True];
 	
         
-        (* Needs the function developped in the Expansion branch *)
-        ExpandedUs=PolyRegionExpand[U,ASYOutput,RegionRules,rho,1];
-        ExpandedFs=PolyRegionExpand[F,ASYOutput,RegionRules,rho,1];
+        PRERegionRules = RegionRules /. Rule[a_, b_] :> Rule[a,a*rho^(Exponent[b, x])];
+
+        ExpandedUs=PolyRegionExpand[U,ASYOutput,PRERegionRules,rho,1];
+        ExpandedFs=PolyRegionExpand[F,ASYOutput,PRERegionRules,rho,1];
 
         RegionUFs = Transpose[{ExpandedUs,ExpandedFs}];
         
