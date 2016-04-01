@@ -9,10 +9,9 @@ LORI[LoopMomenta_,Propagators_,Replacements_,Powers_,rho_,RegionRules_]:=
         },
         {U,F,Dummy}=UF[LoopMomenta,Propagators,Replacements];
         
-        (*ASYSTUFF*)
-        (*TODO*)
-        (*ASYSTUFF*)
 
+        ASYOutput=AlphaRepExpand[LoopMomenta, Propagators, Replacements,RegionRules,PreResolve -> True]
+	
         
         (* Needs the function developped in the Expansion branch *)
         ExpandedUs=PolyRegionExpand[U,ASYOutput,RegionRules,rho,1];
