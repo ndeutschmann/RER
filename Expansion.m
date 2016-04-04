@@ -18,6 +18,6 @@ PolyRegionExpand[U_,ASYOutput_,Param_,rho_,Order_]:=Block[
 
     ScaledUsExpanded=Split[#,RhoMatch]&/@ScaledUsExpanded;
     ScaledUsExpanded = PlusElements/@ScaledUsExpanded;
-    
-    Return[Part[#,1;;Max[Length[#],Order]]&/@ScaledUsExpanded];
+
+    Return[Part[#,1;;Min[Length[#],Order]]&/@ScaledUsExpanded];
 ]
