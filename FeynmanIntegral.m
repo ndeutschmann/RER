@@ -1,5 +1,7 @@
 (* ::Package:: *)
 
+(* This part is designed to be used with the "euclidian" normalization of propagators -k^2+m^2 *)
+(* This means (-1)^a * Integral in Smirnov eq 3.38 *)
 
 FeynmanIntegralUF[U_,F_,Powers_,h_]:= Block[
 (* Give the alpha-integrand of a "h"-loop Feynman scalar integral with Symanzik polynomials "U"&"F" and propagator powers "Powers"*)
@@ -25,7 +27,7 @@ FeynmanIntegralUF[U_,F_,Powers_,h_]:= Block[
 
 	Gammas = Times@@(Gamma/@Select[Powers,#!=0&]);
 	xProduct = Times@@Table[If[Powers[[ii]]!=0,x[ind[[ii]]]^(Powers[[ii]]-1),1],{ii,Length[Powers]}];
-	Return[(-1)^a(I Pi^(d/2))^h Gamma[a-h d/2]/Gammas U^(a-(h+1)d/2)/F^(a-h d/2) * xProduct]
+	Return[(I Pi^(d/2))^h Gamma[a-h d/2]/Gammas U^(a-(h+1)d/2)/F^(a-h d/2) * xProduct]
 
 ]
 
