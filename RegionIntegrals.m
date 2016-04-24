@@ -51,7 +51,7 @@ NLORI[LoopMomenta_,Propagators_,Replacements_,Powers_,rho_,RegionRules_]:=
 	ScaledUs=Simplify[Table[U/.Scaling,{Scaling,Scalings}]/.RhoRegionRules];
 	ScaledFs=Simplify[Table[F/.Scaling,{Scaling,Scalings}]/.RhoRegionRules];
 
-        NonZero[rho_,i_]:=If[i===0,1,rho^i];
+        NonZero[rhu_,i_]:=If[i===0,1,rhu^i];
         
      (*   RegionIntegrals =  Table[Simplify[FeynmanIntegralUF[ScaledUs[[i]],ScaledFs[[i]],Powers, Length[LoopMomenta]]/(NonZero[rho,LOExponents[[i]]])],{i,Length[ScaledUs]}];*)
         RegionIntegrals =  Table[Series[FeynmanIntegralUF[ScaledUs[[i]],ScaledFs[[i]],Powers, Length[LoopMomenta]]/(NonZero[rho,LOExponents[[i]]])//PowerExpand//Simplify,{rho,0,1}],{i,Length[ScaledUs]}];
