@@ -15,7 +15,7 @@ FeynmanIntegralUF[U_,F_,Powers_,h_]:= Block[
 
 	a=Plus@@Powers;
 	(* We only want variables for non-zero propagators. If Powers[i]>0, ind[i] is the number of the corresponding alpha parameter  *)
-	ind=Table[0,{i,Length[Powers]}];  
+	ind=Table[0,{i,Length[Powers]}];
 	count=1;
 	Do[
 		If[
@@ -49,7 +49,7 @@ FeynmanIntegral[LoopMomenta_,Topology_,Replacements_,Powers_]:=Block[
 	 a=Plus@@Powers;
 	 h=Length[LoopMomenta];
 
-	 PowersZeroes = Flatten[Position[Powers,0]]; (* Find uselsess propagator positions *)
+	 PowersZeroes = Position[Powers,0]; (* Find uselsess propagator positions *)
 	 myTopo = Delete[Topology,PowersZeroes]; (* Remove them from the list *)
 	 myPowers = Delete[Powers,PowersZeroes]; (* Remove the associated 0 powers *)
 
