@@ -3,21 +3,24 @@ PolyRegionExpand[U_,ASYOutput_,Param_,rho_,Order_]:=Block[
     {
         Scalings,
         ScaledUs,
-        ScaledUsLO,
-	RhoMatch,
-	PlusElements
+        PowMin,
+        NormalizedScaledUs
     },
 
+    (*Put the scaling from ASY as a rule x[i]->rho^k[i] x[i]*)
     Scalings=Table[ASYOutputRegion[[1]]/.Table[y[i]->x[i]rho^ASYOutputRegion[[3,i]],{i,Length[ASYOutputRegion[[1]]]}],{ASYOutputRegion,ASYOutput}];
-    ScaledUs=Table[U/.Scaling,{Scaling,Scalings}]/.Param;
 
-    ScaledUsExpanded=(SortBy[List@@(Collect[#,rho]),Exponent[#,rho]&])&/@ScaledUs; (* Pb: rho^0 terms appear separately in the list *)
+    (*Rescale the polynomial with: 1) the ASY scaling of the Feynman parameters. 2) The scaling of the external parameters (giving the limit) *)
+    ScaledUs=Table[U/.Scaling,{Scaling,Scalings}]/.Param//Expand;
 
-    RhoMatch = (Exponent[#1,rho]==Exponent[#2,rho])& ;
-    PlusElements = (Plus@@#&)/@#&;
+    (*Normalize the polynomial to have its LO in rho be rho^0*)
+    PowMin = Exponent[#,rho,Min]&/@ScaledUs;
+    (*Tranpose contains List[pol,power], on each of these, Replace the List header by the function that divides the po by rho^power*)
+    NormalizedScaledUs = ((#1/rho^#2)&) @@#& /@ Transpose[{ScaledUs,PowMin}];
 
-    ScaledUsExpanded=Split[#,RhoMatch]&/@ScaledUsExpanded;
-    ScaledUsExpanded = PlusElements/@ScaledUsExpanded;
+    (*Expand the polynomial using Series*)
+    Return[Normal[Series[#,{rho,0,Order}]]& /@NormalizedScaledUs];
 
-    Return[Part[#,1;;Min[Length[#],Order]]&/@ScaledUsExpanded];
+
+
 ]
