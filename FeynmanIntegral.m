@@ -33,7 +33,7 @@ FeynmanIntegralUF[U_,F_,Powers_,h_]:= Block[
 
 
 FeynmanIntegral[LoopMomenta_,Topology_,Replacements_,Powers_]:=Block[
-(* Give the alpha-integrand of a Feynman scalar integral in terms of the propagators in "Topology", with propagator powers "Powers" *)
+(* Give the alpha-integrand of a Feynman scalar integral in terms of the propagators in "Topology", with propagator powers "Powers". Length[Topology]==Length[Powers]*)
 	{
 	 a,
 	 h,
@@ -48,6 +48,8 @@ FeynmanIntegral[LoopMomenta_,Topology_,Replacements_,Powers_]:=Block[
 
 	 a=Plus@@Powers;
 	 h=Length[LoopMomenta];
+
+	 If[Length[Topology]!=Length[Powers],Print["ERROR in defining an integral"]; Return[-1000000000]];
 
 	 PowersZeroes = Position[Powers,0]; (* Find uselsess propagator positions *)
 	 myTopo = Delete[Topology,PowersZeroes]; (* Remove them from the list *)
